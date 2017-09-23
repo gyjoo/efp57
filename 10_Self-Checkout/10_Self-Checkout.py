@@ -1,16 +1,44 @@
-price1 = eval(input("Enter the price of item 1: "))
-quantity1 = eval(input("Enter the quantity of item 1: "))
+class Item() :
+    def __init__(self, input_price, input_quantity) :
+        self.price = input_price
+        self.quantity = input_quantity
 
-price2 = eval(input("Enter the price of item 2: "))
-quantity2 = eval(input("Enter the quantity of item 2: "))
+    def get_price(self) :
+        return self.price
 
-price3 = eval(input("Enter the price of item 3: "))
-quantity3 = eval(input("Enter the quantity of item 3: "))
+    def get_quantity(self) :
+        return self.quantity
 
-subtotal = price1*quantity1 + price2*quantity2 + price3*quantity3
-tax = subtotal*0.055
-total = tax + subtotal
+class Order_list(object) :
+    def __init__(self) :
+        self.tax_rate = 0.055
+        self.subtotal = 0
+        self.total = 0
+        self.list = list()
 
-print("Subtotal: $%0.2f" %subtotal)
-print("Tax: $%0.2f" %tax)
-print("Total: $%0.2f" %total)
+    def add_item(self, item) :
+        self.list.append(item)
+        self.subtotal += item.get_quantity() * item.get_price()
+
+    def delete_item(self, item) :
+        self.list.remove(item)
+        self.subtotal -= item.get_quantity() * item.get_price()
+
+    def get_subtotal(self) :
+        return self.subtotal
+
+    def get_tax(self):
+        return self.tax_rate * self.subtotal
+
+    def get_total(self) :
+        return self.subtotal * ( 1 + self.tax_rate)
+
+my_order = Order_list()
+for counter in range(1,4) :
+    price = eval(input("Enter the price of item %d: " % counter))
+    quantity = eval(input("Enter the quantity of item %d : " % counter))
+    my_order.add_item(Item(price, quantity))
+
+print("Subtotal: $%0.2f" % my_order.get_subtotal())
+print("Tax: $%0.2f" % my_order.get_tax())
+print("Total: $%0.2f" % my_order.get_total())
