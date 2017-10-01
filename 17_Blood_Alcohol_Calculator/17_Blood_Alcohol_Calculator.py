@@ -6,7 +6,7 @@ class inputException(Exception):
 	def __init__(self, value):
 		self.parameter = value
 	def __str__(self):
-		return repr(self.parameter)
+		return str(self.parameter)
 
 class Person:
 	weight = -1
@@ -32,7 +32,7 @@ you = Person()
 try:
 	you.alcohol_consumed = eval(input("How much total alcohol get consumed? "))
 	if(you.alcohol_consumed < 0):
-		raise inputException(The input must be positive number)
+		raise inputException("The input must be positive number")
 
 	you.weight = eval(input("How much is your body weight in pounds? "))
 	if(you.weight < 0):
